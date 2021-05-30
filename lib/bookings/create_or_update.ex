@@ -10,13 +10,12 @@ defmodule Flightex.Bookings.CreateOrUpdate do
         id: id
       }) do
     complete_date
-    |> Booking.build(local_origin, local_destination, user_id)
+    |> Booking.build(local_origin, local_destination, user_id, id)
     |> save_booking()
   end
 
   defp save_booking({:ok, %Booking{} = booking}) do
     BookingAgent.save(booking)
-    {:ok, booking}
   end
 
   defp save_booking({:erro, _reason} = error), do: error
